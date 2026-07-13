@@ -11,8 +11,10 @@ import {
     ListItemText,
     Switch,
     Toolbar,
+    Typography,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import WorkIcon from "@mui/icons-material/Work";
 
 import { navigationItems } from "@/constants/navigation";
 import { useThemeContext } from "@/context/ThemeContext";
@@ -35,7 +37,31 @@ export default function AppSidebar() {
                 },
             }}
         >
-            <Toolbar />
+            <Toolbar
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                    px: 2,
+                }}
+            >
+                <WorkIcon color="primary" fontSize="large" />
+
+                <Box>
+                    <Typography
+                        variant="h6"
+                        sx={{ fontWeight: "bold" }}
+                    >
+                        Job Tracker
+                    </Typography>
+
+                    <Typography variant="caption" color="text.secondary">
+                        Application Manager
+                    </Typography>
+                </Box>
+            </Toolbar>
+
+            <Divider />
 
             <List>
                 {navigationItems.map((item) => {
@@ -46,6 +72,16 @@ export default function AppSidebar() {
                             key={item.path}
                             component={NavLink}
                             to={item.path}
+                            end
+                            sx={{
+                                "&.active": {
+                                    bgcolor: "primary.main",
+                                    color: "primary.contrastText",
+                                    "& .MuiListItemIcon-root": {
+                                        color: "primary.contrastText",
+                                    },
+                                },
+                            }}
                         >
                             <ListItemIcon>
                                 <Icon />
