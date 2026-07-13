@@ -1,3 +1,13 @@
+import { Typography } from "@mui/material";
+
+import AppLayout from "@/components/layout/AppLayout";
+
 export default function Applications() {
-    return <h1>Applications</h1>;
+    return (
+        <AppLayout>
+            <Typography variant="h1">
+                Applications
+            </Typography>
+        </AppLayout>
+    );
 }

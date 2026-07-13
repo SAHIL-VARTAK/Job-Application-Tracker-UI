@@ -2,11 +2,11 @@ import { Typography } from "@mui/material";
 
 import AppLayout from "@/components/layout/AppLayout";
 
-export default function AddApplication() {
+export default function Statistics() {
     return (
         <AppLayout>
             <Typography variant="h1">
-                Add Application
+                Statistics
             </Typography>
         </AppLayout>
     );

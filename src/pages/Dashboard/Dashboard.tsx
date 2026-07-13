@@ -1,19 +1,13 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
-import { useThemeContext } from "@/context/ThemeContext";
+import AppLayout from "@/components/layout/AppLayout";
 
 export default function Dashboard() {
-    const { mode, toggleTheme } = useThemeContext();
-
     return (
-        <Stack spacing={2} sx={{ p: 4 }}>
+        <AppLayout>
             <Typography variant="h1">
-                Dashboard ({mode} mode)
+                Dashboard
             </Typography>
-
-            <Button variant="contained" onClick={toggleTheme}>
-                Toggle Theme
-            </Button>
-        </Stack>
+        </AppLayout>
     );
 }
