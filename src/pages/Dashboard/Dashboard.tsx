@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import applicationService from "@/services/applicationService";
 import PageHeader from "@/components/common/PageHeader";
 import SummaryCards from "@/components/dashboard/SummaryCards";
+import RecentApplications from "@/components/dashboard/RecentApplications";
+import QuickActions from "@/components/dashboard/QuickActions";
 
 export default function Dashboard() {
     // Temporary check for API connectivity. This will be removed once the dashboard is implemented.
@@ -22,9 +24,9 @@ export default function Dashboard() {
 
             <SummaryCards />
 
-            {/* <RecentApplications />
+            <RecentApplications />
 
-            <QuickActions /> */}
+            <QuickActions />
         </AppLayout>
     );
 }
