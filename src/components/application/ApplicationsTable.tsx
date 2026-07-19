@@ -44,7 +44,7 @@ export default function ApplicationsTable({
                     },
                 }}
                 onRowClick={(params) => {
-                    console.log(params.row);
+                    onView(params.row);
                 }}
             />
         </Box>
