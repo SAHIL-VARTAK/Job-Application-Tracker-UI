@@ -19,11 +19,15 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import type { JobApplication } from "@/types/application";
+import { ApplicationStatus } from "@/types/status";
 
 import ApplicationDetailsDialog from "@/components/application/ApplicationDetailsDialog";
 import EmptyState from "@/components/application/EmptyState";
 import StatusChip from "@/components/application/StatusChip";
+import AppSnackbar from "@/components/common/AppSnackbar";
+
 import { useApplications } from "@/hooks/useApplications";
+import { useApplicationStatusUpdate } from "@/hooks/useApplicationStatusUpdate";
 
 function formatDate(date: string) {
     return new Intl.DateTimeFormat("en-IN", {
@@ -48,6 +52,25 @@ export default function RecentApplications() {
         setSelectedApplication,
     ] = useState<JobApplication | null>(null);
 
+    const [snackbar, setSnackbar] = useState({
+        open: false,
+        message: "",
+        severity: "success" as
+            | "success"
+            | "error"
+            | "warning"
+            | "info",
+    });
+
+    const {
+        updating,
+        updateStatus,
+    } = useApplicationStatusUpdate({
+        refresh,
+        onSuccess: () =>
+            setSelectedApplication(null),
+    });
+
     const recentApplications = useMemo(
         () =>
             [...applications]
@@ -63,6 +86,38 @@ export default function RecentApplications() {
                 .slice(0, 5),
         [applications],
     );
+
+    const handleSnackbarClose = () => {
+        setSnackbar((prev) => ({
+            ...prev,
+            open: false,
+        }));
+    };
+
+    const handleUpdateStatus = async (
+        id: number,
+        status: ApplicationStatus,
+    ) => {
+        try {
+            await updateStatus(id, status);
+
+            setSnackbar({
+                open: true,
+                severity: "success",
+                message:
+                    "Status updated successfully.",
+            });
+        } catch (error) {
+            setSnackbar({
+                open: true,
+                severity: "error",
+                message:
+                    "Failed to update status.",
+            });
+
+            console.error(error);
+        }
+    };
 
     if (loading) {
         return (
@@ -191,7 +246,6 @@ export default function RecentApplications() {
                                             }}
                                         >
                                             <Typography
-                                                component="div"
                                                 variant="subtitle1"
                                                 sx={{
                                                     fontWeight: 600,
@@ -203,7 +257,6 @@ export default function RecentApplications() {
                                             </Typography>
 
                                             <Typography
-                                                component="div"
                                                 variant="body2"
                                                 color="text.secondary"
                                             >
@@ -233,7 +286,6 @@ export default function RecentApplications() {
                                             }}
                                         >
                                             <Typography
-                                                component="div"
                                                 variant="body2"
                                                 color="text.secondary"
                                             >
@@ -255,9 +307,7 @@ export default function RecentApplications() {
                                                     "flex-end",
                                             }}
                                         >
-                                            <ChevronRightIcon
-                                                color="action"
-                                            />
+                                            <ChevronRightIcon color="action" />
                                         </Grid>
                                     </Grid>
                                 </ListItemButton>
@@ -275,11 +325,22 @@ export default function RecentApplications() {
                     selectedApplication !==
                     null
                 }
+                loading={updating}
                 onClose={() =>
                     setSelectedApplication(
                         null,
                     )
                 }
+                onUpdateStatus={
+                    handleUpdateStatus
+                }
+            />
+
+            <AppSnackbar
+                open={snackbar.open}
+                message={snackbar.message}
+                severity={snackbar.severity}
+                onClose={handleSnackbarClose}
             />
         </>
     );

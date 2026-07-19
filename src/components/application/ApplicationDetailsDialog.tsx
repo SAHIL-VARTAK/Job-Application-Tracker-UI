@@ -1,10 +1,17 @@
+import { useEffect, useState } from "react";
+
 import {
+    Button,
+    CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
-    Button,
     Divider,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
     Stack,
     Typography,
 } from "@mui/material";
@@ -12,20 +19,28 @@ import {
 import StatusChip from "./StatusChip";
 
 import type { JobApplication } from "@/types/application";
+import { ApplicationStatus } from "@/types/status";
 
 interface ApplicationDetailsDialogProps {
     open: boolean;
     application: JobApplication | null;
+    loading?: boolean;
     onClose: () => void;
+    onUpdateStatus: (
+        id: number,
+        status: ApplicationStatus,
+    ) => Promise<void>;
+}
+
+interface DetailItemProps {
+    label: string;
+    value: React.ReactNode;
 }
 
 function DetailItem({
     label,
     value,
-}: {
-    label: string;
-    value: React.ReactNode;
-}) {
+}: DetailItemProps) {
     return (
         <Stack spacing={0.5}>
             <Typography
@@ -35,7 +50,9 @@ function DetailItem({
                 {label}
             </Typography>
 
-            <Typography component="div">{value}</Typography>
+            <Typography component="div">
+                {value}
+            </Typography>
         </Stack>
     );
 }
@@ -43,16 +60,43 @@ function DetailItem({
 export default function ApplicationDetailsDialog({
     open,
     application,
+    loading = false,
     onClose,
+    onUpdateStatus,
 }: ApplicationDetailsDialogProps) {
+    const [selectedStatus, setSelectedStatus] =
+        useState<ApplicationStatus>(
+            ApplicationStatus.APPLIED,
+        );
+
+    useEffect(() => {
+        if (application) {
+            setSelectedStatus(application.status);
+        }
+    }, [application]);
+
     if (!application) {
         return null;
     }
 
+    const hasChanged =
+        selectedStatus !== application.status;
+
+    const handleUpdate = async () => {
+        if (!application) {
+            return;
+        }
+
+        await onUpdateStatus(
+            application.id,
+            selectedStatus,
+        );
+    };
+
     return (
         <Dialog
             open={open}
-            onClose={onClose}
+            onClose={loading ? undefined : onClose}
             fullWidth
             maxWidth="sm"
         >
@@ -74,14 +118,56 @@ export default function ApplicationDetailsDialog({
                         value={application.role}
                     />
 
-                    <DetailItem
-                        label="Status"
-                        value={
-                            <StatusChip
-                                status={application.status}
-                            />
-                        }
-                    />
+                    <Stack spacing={2}>
+                        <DetailItem
+                            label="Current Status"
+                            value={
+                                <StatusChip
+                                    status={
+                                        application.status
+                                    }
+                                />
+                            }
+                        />
+
+                        <FormControl fullWidth>
+                            <InputLabel>
+                                Change Status
+                            </InputLabel>
+
+                            <Select
+                                label="Change Status"
+                                value={selectedStatus}
+                                onChange={(event) =>
+                                    setSelectedStatus(
+                                        event.target
+                                            .value as ApplicationStatus,
+                                    )
+                                }
+                            >
+                                {Object.values(
+                                    ApplicationStatus,
+                                ).map((status) => (
+                                    <MenuItem
+                                        key={status}
+                                        value={status}
+                                    >
+                                        {status
+                                            .replaceAll(
+                                                "_",
+                                                " ",
+                                            )
+                                            .toLowerCase()
+                                            .replace(
+                                                /\b\w/g,
+                                                (char) =>
+                                                    char.toUpperCase(),
+                                            )}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Stack>
 
                     <DetailItem
                         label="Applied Date"
@@ -93,14 +179,16 @@ export default function ApplicationDetailsDialog({
                                 year: "numeric",
                             },
                         ).format(
-                            new Date(application.appliedDate),
+                            new Date(
+                                application.appliedDate,
+                            ),
                         )}
                     />
 
                     <DetailItem
                         label="Notes"
                         value={
-                            application.notes ||
+                            application.notes ??
                             "No notes available."
                         }
                     />
@@ -108,8 +196,26 @@ export default function ApplicationDetailsDialog({
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={onClose}>
+                <Button
+                    onClick={onClose}
+                    disabled={loading}
+                >
                     Close
+                </Button>
+
+                <Button
+                    variant="contained"
+                    disabled={loading || !hasChanged}
+                    onClick={() => {
+                        void handleUpdate();
+                    }}
+                    startIcon={
+                        loading ? (
+                            <CircularProgress size={18} />
+                        ) : undefined
+                    }
+                >
+                    Update Status
                 </Button>
             </DialogActions>
         </Dialog>
