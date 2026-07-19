@@ -1,5 +1,5 @@
-import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
 import type { JobApplication } from "@/types/application";
 import { getApplicationColumns } from "./applicationColumns";
@@ -17,10 +17,7 @@ export default function ApplicationsTable({
     onView,
     onDelete,
 }: ApplicationsTableProps) {
-    const columns = getApplicationColumns(
-        onView,
-        onDelete,
-    );
+    const columns = getApplicationColumns(onView, onDelete);
 
     return (
         <Box

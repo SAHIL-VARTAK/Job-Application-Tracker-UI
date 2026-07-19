@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import {
     Alert,
@@ -14,20 +14,16 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
-import type { JobApplication } from "@/types/application";
-import { ApplicationStatus } from "@/types/status";
-
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ApplicationDetailsDialog from "@/components/application/ApplicationDetailsDialog";
 import EmptyState from "@/components/application/EmptyState";
 import StatusChip from "@/components/application/StatusChip";
 import AppSnackbar from "@/components/common/AppSnackbar";
-
-import { useApplications } from "@/hooks/useApplications";
 import { useApplicationStatusUpdate } from "@/hooks/useApplicationStatusUpdate";
+import { useApplications } from "@/hooks/useApplications";
+import type { JobApplication } from "@/types/application";
+import type { ApplicationStatus } from "@/types/status";
 
 function formatDate(date: string) {
     return new Intl.DateTimeFormat("en-IN", {
@@ -40,48 +36,26 @@ function formatDate(date: string) {
 export default function RecentApplications() {
     const navigate = useNavigate();
 
-    const {
-        applications,
-        loading,
-        error,
-        refresh,
-    } = useApplications();
+    const { applications, loading, error, refresh } = useApplications();
 
-    const [
-        selectedApplication,
-        setSelectedApplication,
-    ] = useState<JobApplication | null>(null);
+    const [selectedApplication, setSelectedApplication] = useState<JobApplication | null>(null);
 
     const [snackbar, setSnackbar] = useState({
         open: false,
         message: "",
-        severity: "success" as
-            | "success"
-            | "error"
-            | "warning"
-            | "info",
+        severity: "success" as "success" | "error" | "warning" | "info",
     });
 
-    const {
-        updating,
-        updateStatus,
-    } = useApplicationStatusUpdate({
+    const { updating, updateStatus } = useApplicationStatusUpdate({
         refresh,
-        onSuccess: () =>
-            setSelectedApplication(null),
+        onSuccess: () => setSelectedApplication(null),
     });
 
     const recentApplications = useMemo(
         () =>
             [...applications]
                 .sort(
-                    (a, b) =>
-                        new Date(
-                            b.appliedDate,
-                        ).getTime() -
-                        new Date(
-                            a.appliedDate,
-                        ).getTime(),
+                    (a, b) => new Date(b.appliedDate).getTime() - new Date(a.appliedDate).getTime(),
                 )
                 .slice(0, 5),
         [applications],
@@ -94,25 +68,20 @@ export default function RecentApplications() {
         }));
     };
 
-    const handleUpdateStatus = async (
-        id: number,
-        status: ApplicationStatus,
-    ) => {
+    const handleUpdateStatus = async (id: number, status: ApplicationStatus) => {
         try {
             await updateStatus(id, status);
 
             setSnackbar({
                 open: true,
                 severity: "success",
-                message:
-                    "Status updated successfully.",
+                message: "Status updated successfully.",
             });
         } catch (error) {
             setSnackbar({
                 open: true,
                 severity: "error",
-                message:
-                    "Failed to update status.",
+                message: "Failed to update status.",
             });
 
             console.error(error);
@@ -153,8 +122,7 @@ export default function RecentApplications() {
                     </Button>
                 }
             >
-                {error.detail ??
-                    "Unable to load recent applications."}
+                {error.detail ?? "Unable to load recent applications."}
             </Alert>
         );
     }
@@ -173,29 +141,19 @@ export default function RecentApplications() {
                 <Stack
                     direction="row"
                     sx={{
-                        justifyContent:
-                            "space-between",
+                        justifyContent: "space-between",
                         alignItems: "center",
                         px: 3,
                         py: 2,
                     }}
                 >
-                    <Typography
-                        component="h2"
-                        variant="h6"
-                    >
+                    <Typography component="h2" variant="h6">
                         Recent Applications
                     </Typography>
 
                     <Button
-                        endIcon={
-                            <ArrowForwardIcon />
-                        }
-                        onClick={() =>
-                            navigate(
-                                "/applications",
-                            )
-                        }
+                        endIcon={<ArrowForwardIcon />}
+                        onClick={() => navigate("/applications")}
                     >
                         View All
                     </Button>
@@ -212,128 +170,88 @@ export default function RecentApplications() {
                     </Box>
                 ) : (
                     <List disablePadding>
-                        {recentApplications.map(
-                            (
-                                application,
-                            ) => (
-                                <ListItemButton
-                                    key={
-                                        application.id
-                                    }
-                                    divider
-                                    onClick={() =>
-                                        setSelectedApplication(
-                                            application,
-                                        )
-                                    }
+                        {recentApplications.map((application) => (
+                            <ListItemButton
+                                key={application.id}
+                                divider
+                                onClick={() => setSelectedApplication(application)}
+                                sx={{
+                                    py: 2,
+                                }}
+                            >
+                                <Grid
+                                    container
+                                    spacing={2}
                                     sx={{
-                                        py: 2,
+                                        width: "100%",
+                                        alignItems: "center",
                                     }}
                                 >
                                     <Grid
-                                        container
-                                        spacing={2}
-                                        sx={{
-                                            width: "100%",
-                                            alignItems:
-                                                "center",
+                                        size={{
+                                            xs: 12,
+                                            md: 5,
                                         }}
                                     >
-                                        <Grid
-                                            size={{
-                                                xs: 12,
-                                                md: 5,
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="subtitle1"
-                                                sx={{
-                                                    fontWeight: 600,
-                                                }}
-                                            >
-                                                {
-                                                    application.company
-                                                }
-                                            </Typography>
-
-                                            <Typography
-                                                variant="body2"
-                                                color="text.secondary"
-                                            >
-                                                {
-                                                    application.role
-                                                }
-                                            </Typography>
-                                        </Grid>
-
-                                        <Grid
-                                            size={{
-                                                xs: 6,
-                                                md: 3,
-                                            }}
-                                        >
-                                            <StatusChip
-                                                status={
-                                                    application.status
-                                                }
-                                            />
-                                        </Grid>
-
-                                        <Grid
-                                            size={{
-                                                xs: 5,
-                                                md: 3,
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="body2"
-                                                color="text.secondary"
-                                            >
-                                                {formatDate(
-                                                    application.appliedDate,
-                                                )}
-                                            </Typography>
-                                        </Grid>
-
-                                        <Grid
-                                            size={{
-                                                xs: 1,
-                                                md: 1,
-                                            }}
+                                        <Typography
+                                            variant="subtitle1"
                                             sx={{
-                                                display:
-                                                    "flex",
-                                                justifyContent:
-                                                    "flex-end",
+                                                fontWeight: 600,
                                             }}
                                         >
-                                            <ChevronRightIcon color="action" />
-                                        </Grid>
+                                            {application.company}
+                                        </Typography>
+
+                                        <Typography variant="body2" color="text.secondary">
+                                            {application.role}
+                                        </Typography>
                                     </Grid>
-                                </ListItemButton>
-                            ),
-                        )}
+
+                                    <Grid
+                                        size={{
+                                            xs: 6,
+                                            md: 3,
+                                        }}
+                                    >
+                                        <StatusChip status={application.status} />
+                                    </Grid>
+
+                                    <Grid
+                                        size={{
+                                            xs: 5,
+                                            md: 3,
+                                        }}
+                                    >
+                                        <Typography variant="body2" color="text.secondary">
+                                            {formatDate(application.appliedDate)}
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid
+                                        size={{
+                                            xs: 1,
+                                            md: 1,
+                                        }}
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "flex-end",
+                                        }}
+                                    >
+                                        <ChevronRightIcon color="action" />
+                                    </Grid>
+                                </Grid>
+                            </ListItemButton>
+                        ))}
                     </List>
                 )}
             </Paper>
 
             <ApplicationDetailsDialog
-                application={
-                    selectedApplication
-                }
-                open={
-                    selectedApplication !==
-                    null
-                }
+                application={selectedApplication}
+                open={selectedApplication !== null}
                 loading={updating}
-                onClose={() =>
-                    setSelectedApplication(
-                        null,
-                    )
-                }
-                onUpdateStatus={
-                    handleUpdateStatus
-                }
+                onClose={() => setSelectedApplication(null)}
+                onUpdateStatus={handleUpdateStatus}
             />
 
             <AppSnackbar

@@ -2,10 +2,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { IconButton, Stack, Tooltip } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
-
-import StatusChip from "./StatusChip";
-
 import type { JobApplication } from "@/types/application";
+import StatusChip from "./StatusChip";
 
 export function getApplicationColumns(
     onView: (application: JobApplication) => void,
@@ -26,9 +24,7 @@ export function getApplicationColumns(
             field: "status",
             headerName: "Status",
             flex: 1,
-            renderCell: (params) => (
-                <StatusChip status={params.row.status} />
-            ),
+            renderCell: (params) => <StatusChip status={params.row.status} />,
         },
         {
             field: "appliedDate",

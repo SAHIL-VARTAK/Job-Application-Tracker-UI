@@ -1,32 +1,13 @@
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CircularProgress,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, CircularProgress } from "@mui/material";
 
-import {
-    Cell,
-    Legend,
-    Pie,
-    PieChart,
-    ResponsiveContainer,
-    Tooltip,
-} from "recharts";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { STATUS_COLORS } from "@/constants/applicationStatus";
 import type { StatisticsProps } from "@/types/statistics";
 
-interface StatusPieChartProps
-    extends Pick<
-        StatisticsProps,
-        "statistics" | "loading"
-    > {}
+interface StatusPieChartProps extends Pick<StatisticsProps, "statistics" | "loading"> {}
 
-export default function StatusPieChart({
-    statistics,
-    loading,
-}: StatusPieChartProps) {
+export default function StatusPieChart({ statistics, loading }: StatusPieChartProps) {
     if (loading) {
         return (
             <Card
@@ -126,10 +107,7 @@ export default function StatusPieChart({
             <CardHeader title="Status Distribution" />
 
             <CardContent>
-                <ResponsiveContainer
-                    width="100%"
-                    height={350}
-                >
+                <ResponsiveContainer width="100%" height={350}>
                     <PieChart>
                         <Pie
                             data={data}
@@ -140,19 +118,13 @@ export default function StatusPieChart({
                             paddingAngle={3}
                         >
                             {data.map((entry) => (
-                                <Cell
-                                    key={entry.name}
-                                    fill={entry.color}
-                                />
+                                <Cell key={entry.name} fill={entry.color} />
                             ))}
                         </Pie>
 
                         <Tooltip />
 
-                        <Legend
-                            verticalAlign="bottom"
-                            height={36}
-                        />
+                        <Legend verticalAlign="bottom" height={36} />
                     </PieChart>
                 </ResponsiveContainer>
             </CardContent>

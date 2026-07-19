@@ -1,8 +1,7 @@
 import { Button } from "@mui/material";
-
-import AppLayout from "@/components/layout/AppLayout";
 import { Link } from "react-router-dom";
 import PageHeader from "@/components/common/PageHeader";
+import AppLayout from "@/components/layout/AppLayout";
 
 export default function NotFound() {
     return (

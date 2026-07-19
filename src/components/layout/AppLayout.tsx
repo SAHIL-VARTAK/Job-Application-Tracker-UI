@@ -1,5 +1,5 @@
 import { Box, Toolbar } from "@mui/material";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import AppNavbar from "./AppNavbar";
 import AppSidebar from "./AppSidebar";

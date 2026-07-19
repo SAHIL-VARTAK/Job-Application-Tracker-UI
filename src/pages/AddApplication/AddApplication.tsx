@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import AppLayout from "@/components/layout/AppLayout";
-import PageHeader from "@/components/common/PageHeader";
 import ApplicationForm from "@/components/application/ApplicationForm";
 import AppSnackbar from "@/components/common/AppSnackbar";
+import PageHeader from "@/components/common/PageHeader";
+import AppLayout from "@/components/layout/AppLayout";
 
 import applicationService from "@/services/applicationService";
 import type { CreateJobApplicationRequest } from "@/types/application";
@@ -16,17 +15,11 @@ export default function AddApplication() {
     const [loading, setLoading] = useState(false);
     const [snackbar, setSnackbar] = useState({
         open: false,
-        severity: "success" as
-            | "success"
-            | "error"
-            | "warning"
-            | "info",
+        severity: "success" as "success" | "error" | "warning" | "info",
         message: "",
     });
 
-    const handleSubmit = async (
-        data: CreateJobApplicationRequest,
-    ): Promise<boolean> => {
+    const handleSubmit = async (data: CreateJobApplicationRequest): Promise<boolean> => {
         try {
             setLoading(true);
 
@@ -60,10 +53,7 @@ export default function AddApplication() {
 
     return (
         <AppLayout>
-            <PageHeader
-                title="Add Application"
-                subtitle="Track a new job application."
-            />
+            <PageHeader title="Add Application" subtitle="Track a new job application." />
 
             <ApplicationForm
                 loading={loading}

@@ -1,8 +1,4 @@
-import {
-    Paper,
-    Skeleton,
-    Stack,
-} from "@mui/material";
+import { Paper, Skeleton, Stack } from "@mui/material";
 
 export default function SummaryCardSkeleton() {
     return (
@@ -18,16 +14,9 @@ export default function SummaryCardSkeleton() {
             <Stack spacing={2}>
                 <Skeleton width="60%" />
 
-                <Skeleton
-                    width="40%"
-                    height={42}
-                />
+                <Skeleton width="40%" height={42} />
 
-                <Skeleton
-                    variant="circular"
-                    width={56}
-                    height={56}
-                />
+                <Skeleton variant="circular" width={56} height={56} />
             </Stack>
         </Paper>
     );

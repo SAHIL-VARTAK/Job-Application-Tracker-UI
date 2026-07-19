@@ -1,13 +1,6 @@
-import {
-    createContext,
-    type ReactNode,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from "react";
-import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import { createContext, type ReactNode, useContext, useEffect, useMemo, useState } from "react";
 
 import { getTheme } from "@/theme/theme";
 
@@ -24,9 +17,7 @@ interface ThemeContextProviderProps {
     children: ReactNode;
 }
 
-export function ThemeContextProvider({
-    children,
-}: ThemeContextProviderProps) {
+export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
     const [mode, setMode] = useState<ThemeMode>(() => {
         const savedTheme = localStorage.getItem("theme-mode");
 
@@ -57,9 +48,7 @@ export function useThemeContext() {
     const context = useContext(ThemeContext);
 
     if (!context) {
-        throw new Error(
-            "useThemeContext must be used within ThemeContextProvider"
-        );
+        throw new Error("useThemeContext must be used within ThemeContextProvider");
     }
 
     return context;

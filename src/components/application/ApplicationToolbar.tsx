@@ -6,10 +6,7 @@ interface ApplicationToolbarProps {
     onSearchChange: (value: string) => void;
 }
 
-export default function ApplicationToolbar({
-    search,
-    onSearchChange,
-}: ApplicationToolbarProps) {
+export default function ApplicationToolbar({ search, onSearchChange }: ApplicationToolbarProps) {
     return (
         <TextField
             fullWidth

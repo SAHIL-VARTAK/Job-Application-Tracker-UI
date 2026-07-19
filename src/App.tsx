@@ -1,8 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Dashboard from "@/pages/Dashboard/Dashboard";
-import Applications from "@/pages/Applications/Applications";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddApplication from "@/pages/AddApplication/AddApplication";
+import Applications from "@/pages/Applications/Applications";
+import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/NotFound/NotFound";
 import Statistics from "./pages/Statistics/Statistics";
 

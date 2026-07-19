@@ -1,5 +1,6 @@
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import WorkIcon from "@mui/icons-material/Work";
 import {
     Box,
     Divider,
@@ -14,11 +15,9 @@ import {
     Typography,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import WorkIcon from "@mui/icons-material/Work";
-
+import { DRAWER_WIDTH } from "@/constants/layout";
 import { navigationItems } from "@/constants/navigation";
 import { useThemeContext } from "@/context/ThemeContext";
-import { DRAWER_WIDTH } from "@/constants/layout";
 
 export default function AppSidebar() {
     const { mode, toggleTheme } = useThemeContext();
@@ -48,10 +47,7 @@ export default function AppSidebar() {
                 <WorkIcon color="primary" fontSize="large" />
 
                 <Box>
-                    <Typography
-                        variant="h6"
-                        sx={{ fontWeight: "bold" }}
-                    >
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                         Job Tracker
                     </Typography>
 
@@ -99,12 +95,7 @@ export default function AppSidebar() {
 
             <Box sx={{ p: 2 }}>
                 <FormControlLabel
-                    control={
-                        <Switch
-                            checked={mode === "dark"}
-                            onChange={toggleTheme}
-                        />
-                    }
+                    control={<Switch checked={mode === "dark"} onChange={toggleTheme} />}
                     label={
                         <Box
                             sx={{
