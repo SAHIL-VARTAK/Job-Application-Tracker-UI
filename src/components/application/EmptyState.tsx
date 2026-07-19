@@ -1,8 +1,5 @@
 import InboxOutlinedIcon from "@mui/icons-material/InboxOutlined";
-import {
-    Box,
-    Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
 interface EmptyStateProps {
@@ -11,11 +8,7 @@ interface EmptyStateProps {
     action?: ReactNode;
 }
 
-export default function EmptyState({
-    title,
-    description,
-    action,
-}: EmptyStateProps) {
+export default function EmptyState({ title, description, action }: EmptyStateProps) {
     return (
         <Box
             sx={{
@@ -35,10 +28,7 @@ export default function EmptyState({
                 }}
             />
 
-            <Typography
-                variant="h6"
-                sx={{ fontWeight: 600 }}
-            >
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
                 {title}
             </Typography>
 

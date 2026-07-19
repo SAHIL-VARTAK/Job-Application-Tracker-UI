@@ -1,4 +1,4 @@
-import { ApplicationStatus } from "./status";
+import type { ApplicationStatus } from "./status";
 
 export interface JobApplication {
     id: number;

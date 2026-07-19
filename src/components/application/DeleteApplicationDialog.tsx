@@ -25,42 +25,24 @@ export default function DeleteApplicationDialog({
     onConfirm,
 }: DeleteApplicationDialogProps) {
     return (
-        <Dialog
-            open={open}
-            onClose={deleting ? undefined : onCancel}
-            maxWidth="xs"
-            fullWidth
-        >
-            <DialogTitle>
-                Delete Application
-            </DialogTitle>
+        <Dialog open={open} onClose={deleting ? undefined : onCancel} maxWidth="xs" fullWidth>
+            <DialogTitle>Delete Application</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
                     Are you sure you want to delete your application for{" "}
-                    <strong>{application?.role}</strong> at{" "}
-                    <strong>{application?.company}</strong>?
+                    <strong>{application?.role}</strong> at <strong>{application?.company}</strong>?
                 </DialogContentText>
 
-                <DialogContentText sx={{ mt: 2 }}>
-                    This action cannot be undone.
-                </DialogContentText>
+                <DialogContentText sx={{ mt: 2 }}>This action cannot be undone.</DialogContentText>
             </DialogContent>
 
             <DialogActions>
-                <Button
-                    onClick={onCancel}
-                    disabled={deleting}
-                >
+                <Button onClick={onCancel} disabled={deleting}>
                     Cancel
                 </Button>
 
-                <Button
-                    color="error"
-                    variant="contained"
-                    onClick={onConfirm}
-                    loading={deleting}
-                >
+                <Button color="error" variant="contained" onClick={onConfirm} loading={deleting}>
                     Delete
                 </Button>
             </DialogActions>

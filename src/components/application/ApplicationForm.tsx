@@ -1,4 +1,3 @@
-import { Controller, useForm } from "react-hook-form";
 import {
     Box,
     Button,
@@ -9,6 +8,7 @@ import {
     Stack,
     TextField,
 } from "@mui/material";
+import { Controller, useForm } from "react-hook-form";
 
 import type { CreateJobApplicationRequest } from "@/types/application";
 
@@ -17,9 +17,7 @@ interface ApplicationFormProps {
     loading?: boolean;
     returnAfterSave: boolean;
     onReturnAfterSaveChange: (checked: boolean) => void;
-    onSubmit: (
-        data: CreateJobApplicationRequest,
-    ) => Promise<boolean>;
+    onSubmit: (data: CreateJobApplicationRequest) => Promise<boolean>;
     onCancel?: () => void;
 }
 
@@ -38,12 +36,11 @@ export default function ApplicationForm({
         setFocus,
         formState: { errors, isDirty },
     } = useForm<CreateJobApplicationRequest>({
-        defaultValues:
-            initialValues ?? {
-                company: "",
-                role: "",
-                notes: "",
-            },
+        defaultValues: initialValues ?? {
+            company: "",
+            role: "",
+            notes: "",
+        },
     });
 
     return (
@@ -69,10 +66,7 @@ export default function ApplicationForm({
                     }
                 })}
             >
-                <Grid
-                    container
-                    spacing={3}
-                >
+                <Grid container spacing={3}>
                     <Grid size={{ xs: 12, md: 6 }}>
                         <Controller
                             name="company"
@@ -81,8 +75,7 @@ export default function ApplicationForm({
                                 required: "Company is required",
                                 maxLength: {
                                     value: 100,
-                                    message:
-                                        "Company cannot exceed 100 characters.",
+                                    message: "Company cannot exceed 100 characters.",
                                 },
                             }}
                             render={({ field }) => (
@@ -92,9 +85,7 @@ export default function ApplicationForm({
                                     fullWidth
                                     required
                                     error={!!errors.company}
-                                    helperText={
-                                        errors.company?.message
-                                    }
+                                    helperText={errors.company?.message}
                                 />
                             )}
                         />
@@ -108,8 +99,7 @@ export default function ApplicationForm({
                                 required: "Role is required",
                                 maxLength: {
                                     value: 100,
-                                    message:
-                                        "Role cannot exceed 100 characters.",
+                                    message: "Role cannot exceed 100 characters.",
                                 },
                             }}
                             render={({ field }) => (
@@ -119,9 +109,7 @@ export default function ApplicationForm({
                                     fullWidth
                                     required
                                     error={!!errors.role}
-                                    helperText={
-                                        errors.role?.message
-                                    }
+                                    helperText={errors.role?.message}
                                 />
                             )}
                         />
@@ -134,8 +122,7 @@ export default function ApplicationForm({
                             rules={{
                                 maxLength: {
                                     value: 1000,
-                                    message:
-                                        "Notes cannot exceed 1000 characters.",
+                                    message: "Notes cannot exceed 1000 characters.",
                                 },
                             }}
                             render={({ field }) => (
@@ -146,9 +133,7 @@ export default function ApplicationForm({
                                     minRows={5}
                                     fullWidth
                                     error={!!errors.notes}
-                                    helperText={
-                                        errors.notes?.message
-                                    }
+                                    helperText={errors.notes?.message}
                                 />
                             )}
                         />
@@ -160,9 +145,7 @@ export default function ApplicationForm({
                                 <Checkbox
                                     checked={returnAfterSave}
                                     onChange={(event) =>
-                                        onReturnAfterSaveChange(
-                                            event.target.checked,
-                                        )
+                                        onReturnAfterSaveChange(event.target.checked)
                                     }
                                 />
                             }
@@ -192,11 +175,7 @@ export default function ApplicationForm({
                                 {isDirty ? "Reset" : "Cancel"}
                             </Button>
 
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                loading={loading}
-                            >
+                            <Button type="submit" variant="contained" loading={loading}>
                                 Save Application
                             </Button>
                         </Stack>

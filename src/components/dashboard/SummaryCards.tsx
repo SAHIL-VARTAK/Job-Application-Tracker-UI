@@ -1,18 +1,13 @@
-import {
-    Grid,
-} from "@mui/material";
-
-import WorkOutlineRoundedIcon from "@mui/icons-material/WorkOutlineRounded";
-import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import WorkOutlineRoundedIcon from "@mui/icons-material/WorkOutlineRounded";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
-
-import SummaryCard from "./SummaryCard";
-import SummaryCardSkeleton from "./SummaryCardSkeleton";
-import DashboardError from "./DashboardError";
-
+import { Grid } from "@mui/material";
 import useStatistics from "@/hooks/useStatistics";
 import { ApplicationStatus } from "@/types/status";
+import DashboardError from "./DashboardError";
+import SummaryCard from "./SummaryCard";
+import SummaryCardSkeleton from "./SummaryCardSkeleton";
 
 const CARD_CONFIG = [
     {
@@ -42,19 +37,11 @@ const CARD_CONFIG = [
 ] as const;
 
 export default function SummaryCards() {
-    const {
-        statistics,
-        loading,
-        error,
-        refresh,
-    } = useStatistics();
+    const { statistics, loading, error, refresh } = useStatistics();
 
     if (loading) {
         return (
-            <Grid
-                container
-                spacing={3}
-            >
+            <Grid container spacing={3}>
                 {[1, 2, 3, 4].map((item) => (
                     <Grid
                         key={item}
@@ -72,32 +59,15 @@ export default function SummaryCards() {
     }
 
     if (error || !statistics) {
-        return (
-            <DashboardError
-                message={
-                    error ??
-                    "Unable to load statistics."
-                }
-                onRetry={refresh}
-            />
-        );
+        return <DashboardError message={error ?? "Unable to load statistics."} onRetry={refresh} />;
     }
 
-    const total = Object.values(statistics).reduce(
-        (sum, value) => sum + value,
-        0,
-    );
+    const total = Object.values(statistics).reduce((sum, value) => sum + value, 0);
 
     return (
-        <Grid
-            container
-            spacing={3}
-        >
+        <Grid container spacing={3}>
             {CARD_CONFIG.map((card) => {
-                const value =
-                    card.key === "total"
-                        ? total
-                        : statistics[card.key] ?? 0;
+                const value = card.key === "total" ? total : (statistics[card.key] ?? 0);
 
                 return (
                     <Grid

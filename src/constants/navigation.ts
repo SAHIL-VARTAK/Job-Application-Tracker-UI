@@ -1,8 +1,8 @@
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import WorkIcon from "@mui/icons-material/Work";
+import type { SvgIconComponent } from "@mui/icons-material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import { type SvgIconComponent } from "@mui/icons-material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import WorkIcon from "@mui/icons-material/Work";
 
 export interface NavigationItem {
     label: string;
