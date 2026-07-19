@@ -6,6 +6,9 @@ import EmptyState from "@/components/application/EmptyState";
 import { useApplications } from "@/hooks/useApplications";
 import PageHeader from "@/components/common/PageHeader";
 import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
+import ApplicationToolbar from "@/components/application/ApplicationToolbar";
+import type { JobApplication } from "@/types/application";
 
 export default function Applications() {
     const {
@@ -13,6 +16,23 @@ export default function Applications() {
         loading,
         error,
     } = useApplications();
+
+    const [search, setSearch] = useState("");
+
+    const filteredApplications = applications.filter(
+        application =>
+            application.company
+                .toLowerCase()
+                .includes(search.toLowerCase())
+    );
+
+    const handleView = (application: JobApplication) => {
+        console.log("View application:", application);
+    };
+
+    const handleDelete = (application: JobApplication) => {
+        console.log("Delete application:", application);
+    };
 
     return (
         <AppLayout>
@@ -29,6 +49,11 @@ export default function Applications() {
                 }
             />
 
+            <ApplicationToolbar
+                search={search}
+                onSearchChange={setSearch}
+            />
+
             {error && (
                 <Typography color="error">
                     {error.detail}
@@ -41,8 +66,10 @@ export default function Applications() {
 
             {!error && (
                 <ApplicationsTable
-                    applications={applications}
+                    applications={filteredApplications}
                     loading={loading}
+                    onView={handleView}
+                    onDelete={handleDelete}
                 />
             )}
         </AppLayout>

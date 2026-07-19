@@ -1,82 +1,27 @@
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-
-import StatusChip from "./StatusChip";
+import { DataGrid } from "@mui/x-data-grid";
+import { Box } from "@mui/material";
 
 import type { JobApplication } from "@/types/application";
-import { Box } from "@mui/material";
-import {
-    IconButton,
-    Stack,
-} from "@mui/material";
+import { getApplicationColumns } from "./applicationColumns";
 
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import DeleteIcon from "@mui/icons-material/Delete";
-
-interface Props {
+interface ApplicationsTableProps {
     applications: JobApplication[];
     loading: boolean;
+    onView: (application: JobApplication) => void;
+    onDelete: (application: JobApplication) => void;
 }
-
-const columns: GridColDef<JobApplication>[] = [
-    {
-        field: "company",
-        headerName: "Company",
-        flex: 1,
-    },
-    {
-        field: "role",
-        headerName: "Role",
-        flex: 1,
-    },
-    {
-        field: "status",
-        headerName: "Status",
-        flex: 1,
-        renderCell: (params) => (
-            <StatusChip status={params.row.status} />
-        ),
-    },
-    {
-        field: "appliedDate",
-        headerName: "Applied",
-        flex: 1,
-        valueFormatter: (value) =>
-            new Intl.DateTimeFormat("en-IN", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-            }).format(new Date(value)),
-    },
-    {
-        field: "actions",
-        headerName: "Actions",
-        sortable: false,
-        filterable: false,
-        width: 120,
-        renderCell: () => (
-            <Stack
-                direction="row"
-                spacing={1}
-            >
-                <IconButton size="small">
-                    <VisibilityOutlinedIcon fontSize="small" />
-                </IconButton>
-
-                <IconButton
-                    size="small"
-                    color="error"
-                >
-                    <DeleteIcon fontSize="small" />
-                </IconButton>
-            </Stack>
-        ),
-    },
-];
 
 export default function ApplicationsTable({
     applications,
     loading,
-}: Props) {
+    onView,
+    onDelete,
+}: ApplicationsTableProps) {
+    const columns = getApplicationColumns(
+        onView,
+        onDelete,
+    );
+
     return (
         <Box
             sx={{
@@ -97,6 +42,9 @@ export default function ApplicationsTable({
                             page: 0,
                         },
                     },
+                }}
+                onRowClick={(params) => {
+                    console.log(params.row);
                 }}
             />
         </Box>
