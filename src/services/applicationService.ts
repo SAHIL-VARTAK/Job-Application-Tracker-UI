@@ -1,13 +1,79 @@
-import api from "@/api/axios";
+import api from "@/api/interceptors";
+import { API_ENDPOINTS } from "@/api/endpoints";
+import type {
+    ApplicationStatistics,
+    CreateJobApplicationRequest,
+    JobApplication,
+    UpdateStatusRequest,
+} from "@/types/application";
 
-export const getApplications = () => {
-    return api.get("/applications");
-};
+class ApplicationService {
+    async getAll() {
+        const response =
+            await api.get<JobApplication[]>(
+                API_ENDPOINTS.APPLICATIONS
+            );
 
-export const getApplication = (id: number) => {
-    return api.get(`/applications/${id}`);
-};
+        return response.data;
+    }
 
-export const deleteApplication = (id: number) => {
-    return api.delete(`/applications/${id}`);
-};
+    async getById(id: number) {
+        const response =
+            await api.get<JobApplication>(
+                API_ENDPOINTS.APPLICATION_BY_ID(id)
+            );
+
+        return response.data;
+    }
+
+    async create(data: CreateJobApplicationRequest) {
+        const response =
+            await api.post<JobApplication>(
+                API_ENDPOINTS.APPLICATIONS,
+                data
+            );
+
+        return response.data;
+    }
+
+    async updateStatus(
+        id: number,
+        data: UpdateStatusRequest
+    ) {
+        await api.put(
+            API_ENDPOINTS.UPDATE_STATUS(id),
+            data
+        );
+    }
+
+    async delete(id: number) {
+        await api.delete(
+            API_ENDPOINTS.APPLICATION_BY_ID(id)
+        );
+    }
+
+    async search(company: string) {
+        const response =
+            await api.get<JobApplication[]>(
+                API_ENDPOINTS.SEARCH,
+                {
+                    params: {
+                        company,
+                    },
+                }
+            );
+
+        return response.data;
+    }
+
+    async getStatistics() {
+        const response =
+            await api.get<ApplicationStatistics>(
+                API_ENDPOINTS.STATISTICS
+            );
+
+        return response.data;
+    }
+}
+
+export default new ApplicationService();
