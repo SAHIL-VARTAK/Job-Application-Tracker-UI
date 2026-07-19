@@ -1,8 +1,7 @@
-import { Typography } from "@mui/material";
-
 import AppLayout from "@/components/layout/AppLayout";
 import { useEffect } from "react";
 import applicationService from "@/services/applicationService";
+import PageHeader from "@/components/common/PageHeader";
 
 export default function Dashboard() {
     // Temporary check for API connectivity. This will be removed once the dashboard is implemented.
@@ -15,9 +14,10 @@ export default function Dashboard() {
     
     return (
         <AppLayout>
-            <Typography variant="h1">
-                Dashboard
-            </Typography>
+            <PageHeader
+                title="Dashboard"
+                subtitle="Get an overview of your job application progress."
+            />
         </AppLayout>
     );
 }

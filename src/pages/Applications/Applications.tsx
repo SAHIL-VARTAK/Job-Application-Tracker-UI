@@ -1,7 +1,11 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import AppLayout from "@/components/layout/AppLayout";
+import ApplicationsTable from "@/components/application/ApplicationsTable";
+import EmptyState from "@/components/application/EmptyState";
 import { useApplications } from "@/hooks/useApplications";
+import PageHeader from "@/components/common/PageHeader";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function Applications() {
     const {
@@ -9,32 +13,38 @@ export default function Applications() {
         loading,
         error,
     } = useApplications();
-    
-    if (loading) {
-        return ( 
-            <AppLayout>
-                <div>Loading...</div>
-            </AppLayout>
-        );
-    }
-
-    if (error) {
-        return (
-            <AppLayout>
-                <div>{error.detail}</div>
-            </AppLayout>
-        );
-    }
 
     return (
         <AppLayout>
-            <Typography variant="h1">
-                Applications
-            </Typography>
-            {/*Test code for api integration. Will be removed later*/}
-            <pre>
-                {JSON.stringify(applications, null, 2)}
-            </pre>
+            <PageHeader
+                title="Applications"
+                subtitle="Track and manage your job applications."
+                actions={
+                    <Button
+                        variant="contained"
+                        startIcon={<AddIcon />}
+                    >
+                        Add Application
+                    </Button>
+                }
+            />
+
+            {error && (
+                <Typography color="error">
+                    {error.detail}
+                </Typography>
+            )}
+
+            {!error && !loading && applications.length === 0 && (
+                <EmptyState />
+            )}
+
+            {!error && (
+                <ApplicationsTable
+                    applications={applications}
+                    loading={loading}
+                />
+            )}
         </AppLayout>
     );
 }
