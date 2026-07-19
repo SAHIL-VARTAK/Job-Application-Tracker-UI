@@ -1,40 +1,44 @@
 import { useCallback, useEffect, useState } from "react";
 
 import applicationService from "@/services/applicationService";
-import type { ApiError } from "@/types/api";
 import type { ApplicationStatistics } from "@/types/application";
 
-export function useStatistics() {
+export default function useStatistics() {
     const [statistics, setStatistics] =
         useState<ApplicationStatistics | null>(null);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] =
+        useState(true);
 
-    const [error, setError] = useState<ApiError | null>(null);
+    const [error, setError] =
+        useState<string | null>(null);
 
-    const fetchStatistics = useCallback(async () => {
+    const refresh = useCallback(async () => {
         try {
             setLoading(true);
+            setError(null);
 
-            const data = await applicationService.getStatistics();
+            const data =
+                await applicationService.getStatistics();
 
             setStatistics(data);
-            setError(null);
-        } catch (err) {
-            setError(err as ApiError);
+        } catch {
+            setError(
+                "Unable to load dashboard statistics."
+            );
         } finally {
             setLoading(false);
         }
     }, []);
 
     useEffect(() => {
-        void fetchStatistics();
-    }, [fetchStatistics]);
+        void refresh();
+    }, [refresh]);
 
     return {
         statistics,
         loading,
         error,
-        refresh: fetchStatistics,
+        refresh,
     };
 }

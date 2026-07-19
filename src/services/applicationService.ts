@@ -66,13 +66,20 @@ class ApplicationService {
         return response.data;
     }
 
-    async getStatistics() {
-        const response =
-            await api.get<ApplicationStatistics>(
-                API_ENDPOINTS.STATISTICS
-            );
+    async getStatistics(): Promise<ApplicationStatistics> {
+        const response = await api.get<
+            Partial<ApplicationStatistics>
+        >("/applications/statistics");
 
-        return response.data;
+        return {
+            APPLIED: 0,
+            ONLINE_ASSESSMENT: 0,
+            INTERVIEW: 0,
+            OFFER: 0,
+            REJECTED: 0,
+            ACCEPTED: 0,
+            ...response.data,
+        };
     }
 }
 
