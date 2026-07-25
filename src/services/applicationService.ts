@@ -45,7 +45,7 @@ class ApplicationService {
     }
 
     async getStatistics(): Promise<ApplicationStatistics> {
-        const response = await api.get<Partial<ApplicationStatistics>>("/applications/statistics");
+        const response = await api.get<Partial<ApplicationStatistics>>(API_ENDPOINTS.STATISTICS);
 
         return {
             APPLIED: 0,
