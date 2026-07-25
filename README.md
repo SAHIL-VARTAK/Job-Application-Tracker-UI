@@ -95,3 +95,41 @@ Automatically fixes supported issues.
 - Applications
 - Add Application
 - Statistics
+
+## Running with Docker
+
+### Prerequisites
+
+- Docker Desktop installed and running
+- Spring Boot backend running locally on port `8080`
+
+### Build the Docker Image
+
+Since the frontend is built using Vite, the backend API URL must be provided **at build time**.
+
+```bash
+docker build --build-arg VITE_API_BASE_URL=http://localhost:8080/api -t job-application-tracker-ui .
+```
+
+### Run the Container
+
+```bash
+docker run -p 5173:80 job-application-tracker-ui
+```
+
+Open the application in your browser:
+
+```
+http://localhost:5173
+```
+
+### Notes
+
+- `VITE_API_BASE_URL` is embedded into the application during the Vite build process.
+- Any changes to the API URL require rebuilding the Docker image.
+- The `.env` file is intentionally excluded from the Docker image using `.dockerignore`.
+- The API URL is supplied securely using the Docker build argument:
+  ```bash
+  --build-arg VITE_API_BASE_URL=http://localhost:8080/api
+  ```
+- In a future Docker Compose setup, the frontend and backend will communicate over a shared Docker network without relying on `localhost`.
