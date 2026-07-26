@@ -18,7 +18,7 @@ import type { JobApplication } from "@/types/application";
 import { ApplicationStatus } from "@/types/status";
 import StatusChip from "./StatusChip";
 
-interface ApplicationDetailsDialogProps {
+export interface ApplicationDetailsDialogProps {
     open: boolean;
     application: JobApplication | null;
     loading?: boolean;
