@@ -36,8 +36,20 @@ jobs:
       - name: Run Biome checks
         run: npm run check
 
-      # - name: Run tests
-      #   run: npm test
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: coverage
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage
+          retention-days: 30
 
       - name: Build application
         run: npm run build
@@ -47,3 +59,24 @@ jobs:
           docker build \
             --build-arg VITE_API_BASE_URL=http://localhost:8080/api \
             -t job-application-tracker-ui .
+
+  deploy-coverage:
+    name: Publish Coverage Report
+    needs: build
+
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

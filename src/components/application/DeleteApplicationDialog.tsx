@@ -9,7 +9,7 @@ import {
 
 import type { JobApplication } from "@/types/application";
 
-interface DeleteApplicationDialogProps {
+export interface DeleteApplicationDialogProps {
     open: boolean;
     application: JobApplication | null;
     deleting: boolean;
