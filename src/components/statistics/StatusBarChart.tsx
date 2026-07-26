@@ -1,9 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CircularProgress,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, CircularProgress } from "@mui/material";
 
 import {
     Bar,
@@ -19,16 +14,9 @@ import {
 import { STATUS_COLORS } from "@/constants/applicationStatus";
 import type { StatisticsProps } from "@/types/statistics";
 
-interface StatusBarChartProps
-    extends Pick<
-        StatisticsProps,
-        "statistics" | "loading"
-    > {}
+interface StatusBarChartProps extends Pick<StatisticsProps, "statistics" | "loading"> {}
 
-export default function StatusBarChart({
-    statistics,
-    loading,
-}: StatusBarChartProps) {
+export default function StatusBarChart({ statistics, loading }: StatusBarChartProps) {
     if (loading) {
         return (
             <Card
@@ -102,10 +90,7 @@ export default function StatusBarChart({
             <CardHeader title="Applications by Status" />
 
             <CardContent>
-                <ResponsiveContainer
-                    width="100%"
-                    height={350}
-                >
+                <ResponsiveContainer width="100%" height={350}>
                     <BarChart
                         data={data}
                         margin={{
@@ -115,10 +100,7 @@ export default function StatusBarChart({
                             bottom: 10,
                         }}
                     >
-                        <CartesianGrid
-                            strokeDasharray="3 3"
-                            vertical={false}
-                        />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
 
                         <XAxis
                             dataKey="status"
@@ -127,9 +109,7 @@ export default function StatusBarChart({
                             }}
                         />
 
-                        <YAxis
-                            allowDecimals={false}
-                        />
+                        <YAxis allowDecimals={false} />
 
                         <Tooltip
                             cursor={{
@@ -137,24 +117,9 @@ export default function StatusBarChart({
                             }}
                         />
 
-                        <Bar
-                            dataKey="count"
-                            radius={[
-                                6,
-                                6,
-                                0,
-                                0,
-                            ]}
-                        >
+                        <Bar dataKey="count" radius={[6, 6, 0, 0]}>
                             {data.map((entry) => (
-                                <Cell
-                                    key={
-                                        entry.status
-                                    }
-                                    fill={
-                                        entry.color
-                                    }
-                                />
+                                <Cell key={entry.status} fill={entry.color} />
                             ))}
                         </Bar>
                     </BarChart>

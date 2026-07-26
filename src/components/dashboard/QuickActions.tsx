@@ -1,17 +1,8 @@
-import { useNavigate } from "react-router-dom";
-
-import {
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Stack,
-} from "@mui/material";
-
 import AddIcon from "@mui/icons-material/Add";
-import WorkOutlineRoundedIcon from "@mui/icons-material/WorkOutlineRounded";
 import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
+import WorkOutlineRoundedIcon from "@mui/icons-material/WorkOutlineRounded";
+import { Button, Card, CardContent, CardHeader, Divider, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function QuickActions() {
     const navigate = useNavigate();
@@ -31,7 +22,7 @@ export default function QuickActions() {
             <Divider />
 
             <CardContent>
-                <Stack 
+                <Stack
                     direction={{
                         xs: "column",
                         sm: "row",
@@ -42,9 +33,7 @@ export default function QuickActions() {
                         fullWidth
                         variant="outlined"
                         startIcon={<AddIcon />}
-                        onClick={() =>
-                            navigate("/applications/new")
-                        }
+                        onClick={() => navigate("/applications/new")}
                         sx={{
                             justifyContent: "flex-start",
                         }}
@@ -56,9 +45,7 @@ export default function QuickActions() {
                         fullWidth
                         variant="outlined"
                         startIcon={<WorkOutlineRoundedIcon />}
-                        onClick={() =>
-                            navigate("/applications")
-                        }
+                        onClick={() => navigate("/applications")}
                         sx={{
                             justifyContent: "flex-start",
                         }}
@@ -70,9 +57,7 @@ export default function QuickActions() {
                         fullWidth
                         variant="outlined"
                         startIcon={<BarChartRoundedIcon />}
-                        onClick={() =>
-                            navigate("/statistics")
-                        }
+                        onClick={() => navigate("/statistics")}
                         sx={{
                             justifyContent: "flex-start",
                         }}

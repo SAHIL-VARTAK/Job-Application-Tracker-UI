@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import type { AxiosError } from "axios";
 
 import api from "./axios";
 
@@ -15,7 +15,7 @@ api.interceptors.response.use(
             detail: "Unable to connect to server.",
             status: 0,
         });
-    }
+    },
 );
 
 export default api;

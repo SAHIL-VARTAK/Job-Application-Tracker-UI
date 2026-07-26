@@ -1,19 +1,14 @@
 import { Alert, Button, Grid } from "@mui/material";
 
 import PageHeader from "@/components/common/PageHeader";
+import AppLayout from "@/components/layout/AppLayout";
 import StatisticsCards from "@/components/statistics/StatisticsCards";
 import StatusBarChart from "@/components/statistics/StatusBarChart";
 import StatusPieChart from "@/components/statistics/StatusPieChart";
 import useStatistics from "@/hooks/useStatistics";
-import AppLayout from "@/components/layout/AppLayout";
 
 export default function Statistics() {
-    const {
-        statistics,
-        loading,
-        error,
-        refresh,
-    } = useStatistics();
+    const { statistics, loading, error, refresh } = useStatistics();
 
     console.log(statistics);
 
@@ -23,10 +18,7 @@ export default function Statistics() {
                 <Alert
                     severity="error"
                     action={
-                        <Button
-                            color="inherit"
-                            onClick={() => void refresh()}
-                        >
+                        <Button color="inherit" onClick={() => void refresh()}>
                             Retry
                         </Button>
                     }
@@ -39,33 +31,17 @@ export default function Statistics() {
 
     return (
         <AppLayout>
-            <PageHeader
-                title="Statistics"
-                subtitle="Analyze your job application progress."
-            />
+            <PageHeader title="Statistics" subtitle="Analyze your job application progress." />
 
-            <StatisticsCards
-                statistics={statistics}
-                loading={loading}
-            />
+            <StatisticsCards statistics={statistics} loading={loading} />
 
-            <Grid
-                container
-                spacing={3}
-                sx={{ mt: 1 }}
-            >
+            <Grid container spacing={3} sx={{ mt: 1 }}>
                 <Grid size={{ xs: 12, lg: 7 }}>
-                    <StatusBarChart
-                        statistics={statistics}
-                        loading={loading}
-                    />
+                    <StatusBarChart statistics={statistics} loading={loading} />
                 </Grid>
 
                 <Grid size={{ xs: 12, lg: 5 }}>
-                    <StatusPieChart
-                        statistics={statistics}
-                        loading={loading}
-                    />
+                    <StatusPieChart statistics={statistics} loading={loading} />
                 </Grid>
             </Grid>
         </AppLayout>

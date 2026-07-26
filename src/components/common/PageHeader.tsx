@@ -7,11 +7,7 @@ interface PageHeaderProps {
     actions?: ReactNode;
 }
 
-export default function PageHeader({
-    title,
-    subtitle,
-    actions,
-}: PageHeaderProps) {
+export default function PageHeader({ title, subtitle, actions }: PageHeaderProps) {
     return (
         <Stack
             sx={{
@@ -22,18 +18,12 @@ export default function PageHeader({
             }}
         >
             <Stack spacing={0.5}>
-                <Typography
-                    variant="h4"
-                    sx={{ fontWeight: 600 }}
-                >
+                <Typography variant="h4" sx={{ fontWeight: 600 }}>
                     {title}
                 </Typography>
 
                 {subtitle && (
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                    >
+                    <Typography variant="body2" color="text.secondary">
                         {subtitle}
                     </Typography>
                 )}

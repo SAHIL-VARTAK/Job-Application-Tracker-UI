@@ -1,7 +1,4 @@
-import {
-    Alert,
-    Snackbar,
-} from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 
 export interface AppSnackbarProps {
     open: boolean;
@@ -10,12 +7,7 @@ export interface AppSnackbarProps {
     onClose: () => void;
 }
 
-export default function AppSnackbar({
-    open,
-    message,
-    severity,
-    onClose,
-}: AppSnackbarProps) {
+export default function AppSnackbar({ open, message, severity, onClose }: AppSnackbarProps) {
     return (
         <Snackbar
             open={open}
@@ -26,12 +18,7 @@ export default function AppSnackbar({
                 horizontal: "right",
             }}
         >
-            <Alert
-                severity={severity}
-                variant="filled"
-                onClose={onClose}
-                sx={{ width: "100%" }}
-            >
+            <Alert severity={severity} variant="filled" onClose={onClose} sx={{ width: "100%" }}>
                 {message}
             </Alert>
         </Snackbar>

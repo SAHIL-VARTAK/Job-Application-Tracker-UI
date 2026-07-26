@@ -7,5 +7,4 @@ export const ApplicationStatus = {
     ACCEPTED: "ACCEPTED",
 } as const;
 
-export type ApplicationStatus =
-    (typeof ApplicationStatus)[keyof typeof ApplicationStatus];
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus];

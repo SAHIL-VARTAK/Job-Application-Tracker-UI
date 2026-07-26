@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 
 import applicationService from "@/services/applicationService";
-import type { JobApplication } from "@/types/application";
 import type { ApiError } from "@/types/api";
+import type { JobApplication } from "@/types/application";
 
 export function useApplication(id: number) {
     const [application, setApplication] = useState<JobApplication | null>(null);

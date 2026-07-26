@@ -14,10 +14,7 @@ export function useApplicationStatusUpdate({
 }: UseApplicationStatusUpdateProps) {
     const [updating, setUpdating] = useState(false);
 
-    const updateStatus = async (
-        id: number,
-        status: ApplicationStatus,
-    ) => {
+    const updateStatus = async (id: number, status: ApplicationStatus) => {
         setUpdating(true);
 
         try {

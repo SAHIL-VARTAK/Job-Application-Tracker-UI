@@ -1,11 +1,5 @@
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
-
-import {
-    Box,
-    Paper,
-    Stack,
-    Typography,
-} from "@mui/material";
 
 interface SummaryCardProps {
     title: string;
@@ -14,12 +8,7 @@ interface SummaryCardProps {
     color: string;
 }
 
-export default function SummaryCard({
-    title,
-    value,
-    icon,
-    color,
-}: SummaryCardProps) {
+export default function SummaryCard({ title, value, icon, color }: SummaryCardProps) {
     return (
         <Paper
             elevation={0}
@@ -29,14 +18,9 @@ export default function SummaryCard({
                 borderColor: "divider",
                 borderRadius: 2,
                 height: "100%",
-                transition: (theme) =>
-                    theme.transitions.create([
-                        "transform",
-                        "box-shadow",
-                    ]),
+                transition: (theme) => theme.transitions.create(["transform", "box-shadow"]),
                 "&:hover": {
-                    transform:
-                        "translateY(-3px)",
+                    transform: "translateY(-3px)",
                     boxShadow: 3,
                 },
             }}
@@ -45,16 +29,12 @@ export default function SummaryCard({
                 direction="row"
                 spacing={2}
                 sx={{
-                    justifyContent:
-                        "space-between",
+                    justifyContent: "space-between",
                     alignItems: "center",
                 }}
             >
                 <Box>
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                    >
+                    <Typography variant="body2" color="text.secondary">
                         {title}
                     </Typography>
 
@@ -77,8 +57,7 @@ export default function SummaryCard({
                         bgcolor: `${color}.50`,
                         color: `${color}.main`,
                         display: "flex",
-                        justifyContent:
-                            "center",
+                        justifyContent: "center",
                         alignItems: "center",
                     }}
                 >
