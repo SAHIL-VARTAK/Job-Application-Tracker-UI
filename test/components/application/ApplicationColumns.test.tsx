@@ -52,6 +52,7 @@ describe("applicationColumns", () => {
             row: application,
         } as never);
 
+        // biome-ignore lint/complexity/noUselessFragments: Required to wrap ReactNode for render()
         render(<>{cell}</>);
 
         expect(screen.getByTestId("status-chip")).toHaveTextContent(ApplicationStatus.INTERVIEW);
@@ -86,6 +87,7 @@ describe("applicationColumns", () => {
             row: application,
         } as never);
 
+        // biome-ignore lint/complexity/noUselessFragments: Required to wrap ReactNode for render()
         render(<>{cell}</>);
 
         fireEvent.click(
@@ -109,6 +111,7 @@ describe("applicationColumns", () => {
             row: application,
         } as never);
 
+        // biome-ignore lint/complexity/noUselessFragments: Required to wrap ReactNode for render()
         render(<>{cell}</>);
 
         fireEvent.click(
