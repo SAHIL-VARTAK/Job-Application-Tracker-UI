@@ -123,6 +123,60 @@ Open the application in your browser:
 http://localhost:5173
 ```
 
+## Testing
+
+This project includes a comprehensive automated test suite built with **Vitest** and **React Testing Library**, covering components, pages, hooks, services, utilities, and application workflows.
+
+### Run Tests
+
+```bash
+npm test
+```
+
+Runs the test suite in watch mode.
+
+```bash
+npm run test:run
+```
+
+Runs the complete test suite once.
+
+### Generate Coverage Report
+
+```bash
+npm run test:coverage
+```
+
+Generates a code coverage report for the `src` directory.
+
+### Test Stack
+
+- Vitest
+- React Testing Library
+- JSDOM
+- @testing-library/user-event
+- @testing-library/jest-dom
+
+### Coverage
+
+The project is configured to collect coverage for the application source code (`src`) using the V8 coverage provider. Reports are generated in multiple formats, including:
+
+- Terminal summary
+- HTML report
+- LCOV report (for CI integration)
+
+The HTML coverage report can be viewed after running:
+
+```bash
+npm run test:coverage
+```
+
+Then open:
+
+```
+coverage/index.html
+```
+
 ### Notes
 
 - `VITE_API_BASE_URL` is embedded into the application during the Vite build process.
