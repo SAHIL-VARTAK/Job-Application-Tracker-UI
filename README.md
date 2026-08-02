@@ -14,6 +14,46 @@ A modern React + TypeScript frontend for the Job Application Tracker application
 - Dark/Light theme support
 - REST API integration with Spring Boot backend
 
+## Screenshots
+
+### Dashboard
+
+Provides a quick overview of your job search with summary cards and recently added applications.
+
+![Dashboard](screenshots/Dashboard.png)
+
+---
+
+### Applications
+
+Browse, search, and update job applications from a single table.
+
+![Applications](screenshots/Applications.png)
+
+---
+
+### Add Application
+
+Create and save a new job application with company, role, status, and other details.
+
+![Add Application](screenshots/AddApplication.png)
+
+---
+
+### Edit Application Status
+
+Edit the status of an existing application directly from the application details dialog.
+
+![Edit Application Status](screenshots/ApplicationDetailsDialog.png)
+
+---
+
+### Statistics
+
+Visualize application progress using charts and status breakdowns.
+
+![Statistics](screenshots/Statistics.png)
+
 ## Tech Stack
 
 - React 19
@@ -88,13 +128,6 @@ npm run check:fix
 ```
 
 Automatically fixes supported issues.
-
-## Screens
-
-- Dashboard
-- Applications
-- Add Application
-- Statistics
 
 ## Running with Docker
 
