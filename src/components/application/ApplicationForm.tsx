@@ -86,6 +86,18 @@ export default function ApplicationForm({
                                     required
                                     error={!!errors.company}
                                     helperText={errors.company?.message}
+                                    slotProps={{
+                                        htmlInput: {
+                                            autoComplete: "new-password",
+                                        },
+                                    }}
+                                    sx={(theme) => ({
+                                        "& input:-webkit-autofill": {
+                                            WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
+                                            WebkitTextFillColor: theme.palette.text.primary,
+                                            caretColor: theme.palette.text.primary,
+                                        },
+                                    })}
                                 />
                             )}
                         />
@@ -110,6 +122,18 @@ export default function ApplicationForm({
                                     required
                                     error={!!errors.role}
                                     helperText={errors.role?.message}
+                                    slotProps={{
+                                        htmlInput: {
+                                            autoComplete: "new-password",
+                                        },
+                                    }}
+                                    sx={(theme) => ({
+                                        "& input:-webkit-autofill": {
+                                            WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
+                                            WebkitTextFillColor: theme.palette.text.primary,
+                                            caretColor: theme.palette.text.primary,
+                                        },
+                                    })}
                                 />
                             )}
                         />
